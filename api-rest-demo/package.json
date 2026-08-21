@@ -1,22 +1,63 @@
 {
   "name": "api-rest-demo",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "API REST de demostración para AZ-400",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "text-summary",
+      "cobertura",
+      "html",
+      "lcov"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    },
+    "reporters": [
+      "default",
+      ["jest-junit", {
+        "outputDirectory": "test-results",
+        "outputName": "junit.xml",
+        "classNameTemplate": "{classname}",
+        "titleTemplate": "{title}",
+        "ancestorSeparator": " › ",
+        "usePathForSuiteName": "true"
+      }]
+    ],
+    "testTimeout": 10000,
+    "verbose": true,
+    "collectCoverage": true
+  },
+  "keywords": ["api", "rest", "express"],
+  "author": "Tu Nombre",
+  "license": "MIT",
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "@azure/identity": "^3.4.0",
+    "@azure/keyvault-secrets": "^4.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
   },
   "devDependencies": {
-    "eslint": "^10.9.0",
-    "jest": "^30.4.2",
-    "supertest": "^7.2.2"
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "jest-junit": "^16.0.0",
+    "supertest": "^6.3.3"
   }
 }

@@ -1,1 +1,20 @@
+# Dependencies
 node_modules/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# Coverage
+coverage/
+
+# ESLint
+.eslintcache
+
+# Test results
+test-results/
+
+# OS
+.DS_Store
