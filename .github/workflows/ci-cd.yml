@@ -1,7 +1,6 @@
 name: Advanced Testing & Coverage
 
 on:
-  workflow_dispatch:
   push:
     branches: [main, develop]
   pull_request:
@@ -19,12 +18,16 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
+          # ✅ Agregar working-directory para la cache
+          cache-dependency-path: api-rest-demo/package-lock.json
       
       - name: Install dependencies
         run: npm ci
+        working-directory: api-rest-demo  # ✅ Agregar esto
       
       - name: Run Jest Tests
         run: npm test
+        working-directory: api-rest-demo  # ✅ Agregar esto
       
       # Publicar Reporte JUnit en la UI de GitHub
       - name: Publish Test Results
@@ -32,7 +35,7 @@ jobs:
         if: always()
         with:
           name: Jest Tests
-          path: test-results/junit.xml
+          path: api-rest-demo/test-results/junit.xml  # ✅ Actualizar path
           reporter: jest-junit
       
       # Subir Cobertura a Codecov
@@ -40,7 +43,7 @@ jobs:
         uses: codecov/codecov-action@v4
         if: always()
         with:
-          files: ./coverage/cobertura-coverage.xml
+          files: ./api-rest-demo/coverage/cobertura-coverage.xml  # ✅ Actualizar path
           fail_ci_if_error: false
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
@@ -63,7 +66,7 @@ jobs:
       - name: Run k6 load test
         uses: grafana/k6-action@v0.3.1
         with:
-          filename: loadtests/api-load.js
+          filename: api-rest-demo/loadtests/api-load.js  # ✅ Actualizar path
           flags: --out json=results.json
       
       - name: Upload k6 results
