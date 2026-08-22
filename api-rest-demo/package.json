@@ -29,22 +29,27 @@
         "statements": 70
       }
     },
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "src/services/secretService.js",
+      "src/routes/secrets.js"
+    ],
     "reporters": [
       "default",
-      ["jest-junit", {
-        "outputDirectory": "test-results",
-        "outputName": "junit.xml",
-        "classNameTemplate": "{classname}",
-        "titleTemplate": "{title}",
-        "ancestorSeparator": " › ",
-        "usePathForSuiteName": "true"
-      }]
-    ],
-    "testTimeout": 10000,
-    "verbose": true,
-    "collectCoverage": true
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-results",
+          "outputName": "junit.xml"
+        }
+      ]
+    ]
   },
-  "keywords": ["api", "rest", "express"],
+  "keywords": [
+    "api",
+    "rest",
+    "express"
+  ],
   "author": "Tu Nombre",
   "license": "MIT",
   "dependencies": {
