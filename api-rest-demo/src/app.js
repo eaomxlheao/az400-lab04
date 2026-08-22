@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors');
 const userRoutes = require('./routes/users');
-const secretRoutes = require('./routes/secrets');
 const logger = require('./middleware/logger');
 
 const app = express();
@@ -14,9 +13,8 @@ app.use(logger);
 
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/secrets', secretRoutes);
 
-// Health check - ✅ DEBE incluir timestamp
+// Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
