@@ -49,7 +49,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-   load-testing:
+  load-testing:
     runs-on: ubuntu-latest
     needs: test-and-coverage
     
