@@ -49,26 +49,19 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-  load-testing:
+   load-testing:
     runs-on: ubuntu-latest
     needs: test-and-coverage
     
     steps:
       - uses: actions/checkout@v4
       
-      - name: Install k6
-        run: |
-          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg \
-            --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | \
-            sudo tee /etc/apt/sources.list.d/k6.list
-          sudo apt-get update && sudo apt-get install k6
+      # ✅ FORMA OFICIAL Y ROBUSTA DE INSTALAR K6 EN GITHUB ACTIONS
+      - name: Setup k6
+        uses: grafana/setup-k6-action@v1
       
       - name: Run k6 load test
-        uses: grafana/k6-action@v0.3.1
-        with:
-          filename: api-rest-demo/loadtests/api-load.js  # ✅ Actualizar path
-          flags: --out json=results.json
+        run: k6 run api-rest-demo/loadtests/api-load.js --out json=results.json
       
       - name: Upload k6 results
         uses: actions/upload-artifact@v4
